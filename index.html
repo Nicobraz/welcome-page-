@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Welcome — MiNT Window Cleaning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --mint:    #3CBFA0;
+      --mint-dk: #2EA88B;
+      --mint-bg: rgba(60,191,160,0.08);
+      --mint-bd: rgba(60,191,160,0.25);
+      --navy:    #eef9f5;
+      --navy-2:  #ffffff;
+      --navy-3:  #e0f5ee;
+      --text:    #043353;
+      --muted:   #5a7a6e;
+      --border:  rgba(0,0,0,0.07);
+      --radius:  12px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 110%; }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 2rem;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .logo img {
+      height: 63px;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--mint); }
+
+    @media (max-width: 600px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 4.5rem 2rem 3.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--mint-bg);
+      color: var(--mint);
+      border: 1px solid var(--mint-bd);
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--mint);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span { color: var(--mint); }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 860px; margin: 0 auto; padding: 0 2rem 5rem; }
+
+    /* ── SECTION ── */
+    .section { padding-top: 3.5rem; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mint);
+      white-space: nowrap;
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section > p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 580px;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .about-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .about-card .icon {
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-bd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.9rem;
+    }
+
+    .about-card .icon svg {
+      width: 18px; height: 18px;
+      fill: none;
+      stroke: var(--mint);
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .about-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .about-card p  { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── CONTACTS ── */
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .contact-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .contact-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--navy-3);
+      border: 2px solid var(--mint-bd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--mint);
+      margin-bottom: 0.25rem;
+      overflow: hidden;
+    }
+    .contact-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+    .contact-name  { font-weight: 700; font-size: 0.95rem; }
+    .contact-role  { font-size: 0.78rem; color: var(--mint); font-weight: 600; }
+    .contact-note  { font-size: 0.8rem; color: var(--muted); }
+    .card-cot {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--mint);
+      border-top: 1px solid var(--mint-bd);
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+    .citrus-card .card-cot { color: #FDAD3A; border-color: rgba(253,173,58,0.25); }
+    .citrus-card .contact-avatar { border-color: rgba(253,173,58,0.4); }
+    .citrus-card .contact-role   { color: #FDAD3A; }
+
+    .contact-links { display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.35rem; }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover { color: var(--mint); }
+
+    .contact-link svg {
+      width: 13px; height: 13px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ── DOCUMENTS ── */
+    .docs-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .doc-row {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    }
+    .doc-row:hover {
+      background: var(--mint-bg);
+      border-color: var(--mint-bd);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(4,51,83,0.08);
+    }
+
+    .doc-icon {
+      width: 40px; height: 40px;
+      border-radius: 9px;
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-bd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .doc-icon svg {
+      width: 18px; height: 18px;
+      fill: none;
+      stroke: var(--mint);
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .doc-info { flex: 1; }
+    .doc-title { font-weight: 700; font-size: 0.9rem; }
+    .doc-desc  { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+
+    .doc-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .doc-action.download {
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-bd);
+      color: var(--mint);
+    }
+
+    .doc-action.download:hover { background: var(--mint); color: #ffffff; }
+
+    .doc-action.request {
+      background: var(--navy-3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .doc-action.request:hover { border-color: var(--mint); color: var(--mint); }
+
+    .doc-action svg {
+      width: 13px; height: 13px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 500px) {
+      .doc-row { flex-wrap: wrap; }
+      .doc-action { width: 100%; justify-content: center; }
+    }
+
+    /* ── HERO BUTTON ── */
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.75rem;
+      padding: 0.9rem 2rem;
+      background: var(--mint);
+      color: #fff;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero-btn::after { content: '→'; }
+    .hero-btn:hover { background: var(--mint-dk); transform: translateY(-2px); }
+
+    /* ── STEPS ── */
+    .steps-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .step {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .step-number {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-bd);
+      color: var(--mint);
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-body h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .step-body p  { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── HERO ACCENT ── */
+    .hero { background: radial-gradient(ellipse at top left, rgba(60,191,160,0.12) 0%, transparent 65%); }
+
+    /* ── SERVICES STRIP ── */
+    .services-strip {
+      background: var(--navy-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+    }
+    .services-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .service-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 20px;
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-bd);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .service-chip:hover {
+      background: var(--mint);
+      border-color: var(--mint);
+      color: #fff;
+    }
+    .service-chip:hover svg { stroke: #fff; }
+    .service-chip.citrus-chip:hover {
+      background: #FDAD3A;
+      border-color: #FDAD3A;
+    }
+    .service-chip svg {
+      width: 15px; height: 15px;
+      fill: none;
+      stroke: var(--mint);
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ── STEPS CONNECTOR ── */
+    .steps-list { position: relative; }
+    .steps-list::before {
+      content: '';
+      position: absolute;
+      left: calc(1.5rem + 17px);
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent 3%, rgba(60,191,160,0.45) 10%, rgba(60,191,160,0.45) 90%, transparent 97%);
+      border-radius: 1px;
+      pointer-events: none;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; }
+    .reveal.visible { animation: fadeInUp 0.5s ease forwards; }
+
+    /* ── HOVER LIFTS ── */
+    .about-card, .contact-card {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .about-card:hover, .contact-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(4,51,83,0.08);
+    }
+    .step { position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+    .step:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(4,51,83,0.07); }
+
+    /* ── INSTAGRAM ── */
+    .instagram-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .ig-icon {
+      width: 54px; height: 54px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .ig-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .ig-body p  { font-size: 0.875rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--mint);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .ig-link:hover { text-decoration: underline; }
+    @media (max-width: 500px) {
+      .instagram-card { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ── SOCIAL GRID ── */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 720px) { .social-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px) { .social-grid { grid-template-columns: 1fr; } }
+    .social-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .social-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(4,51,83,0.08); }
+    .social-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .social-icon svg { width: 24px; height: 24px; }
+    .social-name  { font-weight: 700; font-size: 0.9rem; }
+    .social-handle { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+
+    /* ── ABOUT CTA ── */
+    .about-cta { margin-top: 1.5rem; }
+    .about-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      border: 2px solid var(--mint);
+      color: var(--mint);
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .about-btn:hover { background: var(--mint); color: #fff; }
+
+    /* ── MODAL ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 480px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+
+    .modal-header h3 { font-size: 1.05rem; font-weight: 700; }
+    .modal-header p  { font-size: 0.82rem; color: var(--muted); margin-top: 0.25rem; }
+
+    .modal-close {
+      background: var(--navy-3);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 30px; height: 30px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--text); }
+    .modal-close svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; fill: none; }
+
+    .modal form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .modal label { font-size: 0.78rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+
+    .modal input,
+    .modal textarea {
+      width: 100%;
+      background: var(--navy-3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.875rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .modal input:focus,
+    .modal textarea:focus { border-color: var(--mint); }
+
+    .modal textarea { resize: vertical; min-height: 80px; }
+
+    .modal-submit {
+      background: var(--mint);
+      color: #fff;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .modal-submit:hover:not(:disabled) { background: var(--mint-dk); }
+    .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .modal-note { font-size: 0.75rem; color: var(--muted); text-align: center; }
+
+    .modal-success {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+
+    .modal-success .check {
+      width: 52px; height: 52px;
+      background: var(--mint-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .modal-success .check svg {
+      width: 22px; height: 22px;
+      stroke: var(--mint);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .modal-success h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .modal-success p  { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    footer a { color: var(--mint); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="https://dirtymint.com" target="_blank" rel="noopener" class="logo">
+      <img src="https://cdn.gamma.app/7tpfxyc6zx3wvh6/58533098c9f6446a95578ce559862ad2/original/MINT-WEB-LOGO.png" alt="MiNT Window Cleaning" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About MiNT</a></li>
+      <li><a href="#what-to-expect">What to Expect</a></li>
+      <li><a href="#team">Your Team</a></li>
+      <li><a href="#documents">Documents</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">New client welcome</div>
+    <h1>Welcome to the<br><span>MiNT Family.</span></h1>
+    <p>We're excited to work with you. This page covers what to expect, who to contact, and a few important resources to help us get started smoothly.</p>
+    <a href="#team" class="hero-btn">Meet Your MiNT Team</a>
+  </div>
+
+  <!-- SERVICES STRIP -->
+  <div class="services-strip">
+    <div class="services-inner">
+      <a href="https://dirtymint.com/services/exterior-window-cleaning?utm_source=google&utm_medium=cpc&utm_campaign=23612155408&utm_term=mint+cleaning&utm_content=196590891551" target="_blank" rel="noopener" class="service-chip">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1.5"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M6 6l2 2" stroke-linecap="round" stroke-width="2"/></svg>
+        Window Cleaning
+      </a>
+      <a href="https://dirtymint.com/services/exterior-window-cleaning?utm_source=google&utm_medium=cpc&utm_campaign=23612155408&utm_term=mint+cleaning&utm_content=196590891551" target="_blank" rel="noopener" class="service-chip">
+        <svg viewBox="0 0 24 24"><path d="M4 20l10-10"/><path d="M12 12l2-2 2 2-2 2z"/><path d="M16 8l2-2M18 10h2M16 12l2 2"/><path d="M2 22l3-3"/></svg>
+        Pressure Washing
+      </a>
+      <a href="https://dirtymint.com/services/exterior-window-cleaning?utm_source=google&utm_medium=cpc&utm_campaign=23612155408&utm_term=mint+cleaning&utm_content=196590891551" target="_blank" rel="noopener" class="service-chip">
+        <svg viewBox="0 0 24 24"><path d="M17 9h-1a6 6 0 00-10.8 3.6H5a4 4 0 000 8h12a4 4 0 000-8z"/><path d="M8 21v1M12 21v1M16 21v1" stroke-linecap="round"/></svg>
+        Soft Washing
+      </a>
+      <a href="https://dirtymint.com/services/exterior-window-cleaning?utm_source=google&utm_medium=cpc&utm_campaign=23612155408&utm_term=mint+cleaning&utm_content=196590891551" target="_blank" rel="noopener" class="service-chip">
+        <svg viewBox="0 0 24 24"><rect x="1" y="8" width="16" height="11" rx="1"/><path d="M1 12h16M1 16h16M7 8v11"/><path d="M21 5h-2M24 5h-2M22 2v2M22 8v2M24 3l-2 2M20 3l2 2M24 7l-2-2M20 7l2-2"/></svg>
+        Solar Panel Cleaning
+      </a>
+      <a href="https://dirtymint.com/services/exterior-window-cleaning?utm_source=google&utm_medium=cpc&utm_campaign=23612155408&utm_term=mint+cleaning&utm_content=196590891551" target="_blank" rel="noopener" class="service-chip">
+        <svg viewBox="0 0 24 24"><path d="M2 7h20v4a1 1 0 01-1 1H3a1 1 0 01-1-1V7z"/><path d="M7 12v5m5-5v7m5-5v5" stroke-linecap="round"/></svg>
+        Gutter Cleaning
+      </a>
+      <a href="https://dirtymint.com/services/exterior-window-cleaning?utm_source=google&utm_medium=cpc&utm_campaign=23612155408&utm_term=mint+cleaning&utm_content=196590891551" target="_blank" rel="noopener" class="service-chip">
+        <svg viewBox="0 0 24 24"><rect x="2" y="17" width="20" height="3" rx="1"/><path d="M7 17V9M12 17V7M17 17V11" stroke-linecap="round"/><path d="M4 9h6M9 7h6M14 11h6"/></svg>
+        Surface Washing
+      </a>
+      <div style="flex-basis:100%;height:0"></div>
+      <a href="https://www.dirtycitrus.com/?utm_source=google&utm_medium=cpc&utm_campaign=20252811090&utm_content=150054670557&utm_term=citrus%20carpet%20cleaning&gad_source=1&gad_campaignid=20252811090&gbraid=0AAAAAptH2Zv2JviQIRihV0-bYwaF_HZau&gclid=CjwKCAjw0dPRBhAPEiwAE5vTTs-cLq91tK_PHWGi45TTSJ1xcvjvVRzIrFDVlpF7guyJ8C8In0ZK0xoCue4QAvD_BwE" target="_blank" rel="noopener" class="service-chip citrus-chip">
+        <svg viewBox="0 0 24 24"><path d="M3 7c3-3 6 0 9 0s6-3 9 0" stroke-linecap="round"/><path d="M3 12c3-3 6 0 9 0s6-3 9 0" stroke-linecap="round"/><path d="M3 17c3-3 6 0 9 0s6-3 9 0" stroke-linecap="round"/></svg>
+        Carpet Cleaning      </a>
+      <a href="https://www.dirtycitrus.com/?utm_source=google&utm_medium=cpc&utm_campaign=20252811090&utm_content=150054670557&utm_term=citrus%20carpet%20cleaning&gad_source=1&gad_campaignid=20252811090&gbraid=0AAAAAptH2Zv2JviQIRihV0-bYwaF_HZau&gclid=CjwKCAjw0dPRBhAPEiwAE5vTTs-cLq91tK_PHWGi45TTSJ1xcvjvVRzIrFDVlpF7guyJ8C8In0ZK0xoCue4QAvD_BwE" target="_blank" rel="noopener" class="service-chip citrus-chip">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="0.5"/><rect x="14" y="3" width="7" height="7" rx="0.5"/><rect x="3" y="14" width="7" height="7" rx="0.5"/><rect x="14" y="14" width="7" height="7" rx="0.5"/></svg>
+        Tile &amp; Grout Cleaning      </a>
+      <a href="https://www.dirtycitrus.com/?utm_source=google&utm_medium=cpc&utm_campaign=20252811090&utm_content=150054670557&utm_term=citrus%20carpet%20cleaning&gad_source=1&gad_campaignid=20252811090&gbraid=0AAAAAptH2Zv2JviQIRihV0-bYwaF_HZau&gclid=CjwKCAjw0dPRBhAPEiwAE5vTTs-cLq91tK_PHWGi45TTSJ1xcvjvVRzIrFDVlpF7guyJ8C8In0ZK0xoCue4QAvD_BwE" target="_blank" rel="noopener" class="service-chip citrus-chip">
+        <svg viewBox="0 0 24 24"><path d="M5 10h14a2 2 0 012 2v7H3v-7a2 2 0 012-2z"/><path d="M3 14h18"/><path d="M5 14v-2a2 2 0 014 0v2M15 14v-2a2 2 0 014 0v2"/><path d="M5 19v2M19 19v2" stroke-linecap="round"/></svg>
+        Upholstery Cleaning      </a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- WHAT TO EXPECT -->
+    <div class="section" id="what-to-expect">
+      <div class="section-header">
+        <span class="section-label">Next steps</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>What happens next</h2>
+      <p>Here's how your first experience with MiNT unfolds — from scheduling to follow-up.</p>
+
+      <div class="steps-list">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-body">
+            <h3>Scheduling</h3>
+            <p>Our operations team will reach out to coordinate your first service date.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-body">
+            <h3>Service Preparation</h3>
+            <p>We'll provide any preparation instructions needed before your appointment.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-body">
+            <h3>Service Day</h3>
+            <p>Our professional team will arrive ready to complete the agreed-upon services.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-body">
+            <h3>Follow-Up</h3>
+            <p>We'll make sure everything meets your expectations. Every service is backed by our 100% satisfaction guarantee.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- YOUR MINT TEAM -->
+    <div class="section" id="team">
+      <div class="section-header">
+        <span class="section-label">Your team</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Your MiNT Team</h2>
+      <p>Reach out directly — no ticketing systems, no runaround.</p>
+
+      <div class="contacts-grid">
+
+        <div class="contact-card">
+          <div class="contact-avatar"><img src="Mint ICON NAVY.png" alt="MiNT" /></div>
+          <div class="contact-name">Nico</div>
+          <div class="contact-role">Account Executive</div>
+          <div class="contact-note">Your main point of contact for additional quotes, new service requests, account questions, and anything related to your partnership with MiNT.</div>
+          <div class="contact-links">
+            <a href="mailto:services@dirtymint.com" class="contact-link">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              services@dirtymint.com
+            </a>
+            <a href="tel:3853345782" class="contact-link">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+              (385) 334-5782
+            </a>
+            <a href="tel:4808485379" class="contact-link">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+              (480) 848-5379
+            </a>
+          </div>
+          <div class="card-cot">Call or Text</div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-avatar"><img src="Mint ICON NAVY.png" alt="MiNT" /></div>
+          <div class="contact-name">MiNT Office</div>
+          <div class="contact-role">Scheduling &amp; Client Support</div>
+          <div class="contact-note">Contact the MiNT office for scheduling, billing questions, service updates, and general support related to your MiNT services.</div>
+          <div class="contact-links">
+            <a href="mailto:hello@dirtymint.com" class="contact-link">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              hello@dirtymint.com
+            </a>
+            <a href="tel:8014320677" class="contact-link">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+              (801) 432-0677
+            </a>
+          </div>
+          <div class="card-cot">Call or Text</div>
+        </div>
+
+        <div class="contact-card citrus-card">
+          <div class="contact-avatar"><img src="citrus-office-icon.png" alt="Citrus" /></div>
+          <div class="contact-name">Citrus Office</div>
+          <div class="contact-role">Scheduling &amp; Client Support</div>
+          <div class="contact-note">Contact the Citrus office for scheduling, billing questions, service updates, and general support related to your Citrus services.</div>
+          <div class="contact-links">
+            <a href="mailto:hello@dirtycitrus.com" class="contact-link">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              hello@dirtycitrus.com
+            </a>
+            <a href="tel:3856446944" class="contact-link">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+              (385) 644-6944
+            </a>
+          </div>
+          <div class="card-cot">Call or Text</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ABOUT MINT -->
+    <div class="section" id="about">
+      <div class="section-header">
+        <span class="section-label">About us</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>About MiNT</h2>
+      <p>MiNT Window Cleaning is Utah's fastest-growing commercial cleaning company, serving clients across Utah and Las Vegas with window cleaning, pressure washing, soft washing, and carpet &amp; tile cleaning through our sister brand Citrus.</p>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </div>
+          <h3>Founded 2018</h3>
+          <p>Established with a vision for excellence — now one of the fastest-growing cleaning companies in Utah.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3>5,000+ Five-Star Reviews</h3>
+          <p>Trusted by thousands of commercial clients across Utah and Las Vegas.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Utah &amp; Las Vegas</h3>
+          <p>Serving Utah County, Salt Lake, Davis, Weber &amp; Summit Counties plus Clark, Nye, Lincoln &amp; Mohave Counties in Nevada.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <h3>Fully Licensed &amp; Insured</h3>
+          <p>All licenses and certificates of insurance are available — download them below or request a COI for your project.</p>
+        </div>
+      </div>
+      <div class="about-cta">
+        <a href="https://dirtymint.com/about-us" target="_blank" rel="noopener" class="about-btn">Learn More About Us →</a>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="section" id="documents">
+      <div class="section-header">
+        <span class="section-label">Documents</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Company documents</h2>
+      <p>Download standard documents or submit a COI request below.</p>
+
+      <div class="docs-list">
+
+        <a href="W-9 OREM 2.pdf" download target="_blank" rel="noopener" class="doc-row">
+          <div class="doc-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="doc-info">
+            <div class="doc-title">W-9 Form</div>
+            <div class="doc-desc">Current IRS W-9 — MiNT Window Cleaning taxpayer identification.</div>
+          </div>
+          <span class="doc-action download">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </span>
+        </a>
+
+        <a href="Mint BL.pdf" download target="_blank" rel="noopener" class="doc-row">
+          <div class="doc-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          </div>
+          <div class="doc-info">
+            <div class="doc-title">Business License</div>
+            <div class="doc-desc">Current business license for MiNT Window Cleaning.</div>
+          </div>
+          <span class="doc-action download">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </span>
+        </a>
+
+        <div class="doc-row" onclick="document.getElementById('coi-modal').classList.add('open')">
+          <div class="doc-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="doc-info">
+            <div class="doc-title">Certificate of Insurance (COI)</div>
+            <div class="doc-desc">Submit your request — we'll prepare your COI within 1–2 business days.</div>
+          </div>
+          <button onclick="event.stopPropagation();document.getElementById('coi-modal').classList.add('open')" class="doc-action request">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="12" y1="17" x2="8" y2="17"/></svg>
+            Request COI
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- INSTAGRAM -->
+    <div class="section" id="instagram">
+      <div class="section-header">
+        <span class="section-label">Follow along</span>
+        <div class="section-rule"></div>
+      </div>
+      <div class="social-grid">
+
+        <a href="https://www.facebook.com/mintcleaningutah" target="_blank" rel="noopener" class="social-card">
+          <div class="social-icon" style="background:#043353">
+            <svg viewBox="0 0 24 24"><path fill="white" d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </div>
+          <div>
+            <div class="social-name">Facebook</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/dirty.mint/" target="_blank" rel="noopener" class="social-card">
+          <div class="social-icon">
+            <img src="ig-icon.png" alt="Instagram" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+          </div>
+          <div>
+            <div class="social-name">MiNT — Instagram</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/citruscarpets/" target="_blank" rel="noopener" class="social-card">
+          <div class="social-icon">
+            <img src="citrus-ig-icon.png" alt="Citrus Instagram" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+          </div>
+          <div>
+            <div class="social-name">Citrus — Instagram</div>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/@gatlin.mcbride" target="_blank" rel="noopener" class="social-card">
+          <div class="social-icon" style="background:#3CBFA0">
+            <svg viewBox="0 0 24 24">
+              <path fill="white" d="M22.54 6.42a2.78 2.78 0 00-1.95-1.95C18.88 4 12 4 12 4s-6.88 0-8.59.47a2.78 2.78 0 00-1.95 1.95C1 8.12 1 12 1 12s0 3.88.46 5.58a2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95C23 15.88 23 12 23 12s0-3.88-.46-5.58z"/>
+              <polygon fill="#3CBFA0" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+            </svg>
+          </div>
+          <div>
+            <div class="social-name">YouTube</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+  <footer>
+    <p>&copy; 2026 MiNT Window Cleaning &mdash; <a href="mailto:services@dirty.mint.com">services@dirty.mint.com</a> &mdash; Utah &amp; Las Vegas</p>
+  </footer>
+
+  <!-- COI MODAL -->
+  <div class="modal-backdrop" id="coi-modal" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3>Request a Certificate of Insurance</h3>
+          <p>We'll have your COI ready within 1–2 business days.</p>
+        </div>
+        <button class="modal-close" onclick="closeModal()">
+          <svg viewBox="0 0 14 14"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+        </button>
+      </div>
+
+      <form id="coi-form">
+        <div>
+          <label for="coi-company">Company name to appear on COI *</label>
+          <input type="text" id="coi-company" name="Company" placeholder="Acme Corp" required />
+        </div>
+        <div>
+          <label for="coi-address">Address to appear on COI *</label>
+          <textarea id="coi-address" name="Address" placeholder="123 Main St, City, State, ZIP" required style="min-height:70px"></textarea>
+        </div>
+        <button type="submit" class="modal-submit" id="coi-submit">Submit request</button>
+        <p class="modal-note">We'll follow up within 1–2 business days.</p>
+      </form>
+
+      <div class="modal-success" id="coi-success">
+        <div class="check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Request received!</h3>
+        <p>We'll have your COI ready and sent to you within 1–2 business days.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxebvogCCHdUKKY-bp84AqVRFdquGUNHzb-9UjPcLxK4hbzafkwlk0s7L1VninfuUKMPA/exec';
+
+    function closeModal() {
+      document.getElementById('coi-modal').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.getElementById('coi-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('coi-submit');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        await fetch(SCRIPT_URL, { method: 'POST', body: new FormData(this), mode: 'no-cors' });
+      } catch (_) {}
+
+      document.getElementById('coi-form').style.display = 'none';
+      document.getElementById('coi-success').style.display = 'block';
+    });
+
+    // Scroll-reveal
+    (function() {
+      var els = document.querySelectorAll('.about-card, .contact-card, .step, .doc-row, .instagram-card, .service-chip');
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+      els.forEach(function(el, i) {
+        el.classList.add('reveal');
+        el.style.animationDelay = ((i % 4) * 0.08) + 's';
+        io.observe(el);
+      });
+    })();
+  </script>
+
+</body>
+</html>
